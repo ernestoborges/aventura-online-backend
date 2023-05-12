@@ -2,6 +2,10 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
+import dotenv from "dotenv"
+dotenv.config();
+
+const mySecret = process.env.JWT_SECRET;
 
 export const login = async (req: Request, res: Response) => {
     try {
@@ -20,9 +24,11 @@ export const login = async (req: Request, res: Response) => {
         }
 
         // JWT TOKEN CREATION
-        const token = jwt.sign({ userId: user._id }, 'secret', { expiresIn: '1h' });
+        const token = jwt.sign({ userId: user._id }, mySecret!, { expiresIn: '1h' });
+        
+        res.cookie("token", token, { httpOnly: true });
+        res.status(200).json({ message: "Login bem-sucedido" });
 
-        res.status(200).json({ token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Erro ao fazer login.' });
