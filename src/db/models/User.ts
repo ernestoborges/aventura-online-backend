@@ -6,7 +6,7 @@ interface IUser extends Document {
     email: string;
     birthDate: string;
     createdAt: Date;
-    isEmailVerified: boolean; 
+    isVerifyed: boolean; 
 }
 
 const UserSchema: Schema = new Schema({
@@ -15,7 +15,7 @@ const UserSchema: Schema = new Schema({
     email: { type: String, required: true },
     birthDate: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
-    isVerified: {type: Boolean, default: false},
+    isVerifyed: {type: Boolean, default: false},
 });
 
 const User = mongoose.model<IUser>('User', UserSchema);

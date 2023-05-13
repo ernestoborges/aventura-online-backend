@@ -10,7 +10,8 @@ const mySecret = process.env.JWT_TOKEN;
 function validateAccessToken(accessToken: string) {
     try {
         
-        const decoded = jwt.verify(accessToken, mySecret!) as AccessTokenPayload;
+        // const decoded = jwt.verify(accessToken, mySecret!) as AccessTokenPayload;
+        const decoded = jwt.verify("accessToken", mySecret!) as AccessTokenPayload;
 
         const userId = decoded.userId;
 

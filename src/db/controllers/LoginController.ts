@@ -25,9 +25,14 @@ export const login = async (req: Request, res: Response) => {
 
         // JWT TOKEN CREATION
         const token = jwt.sign({ userId: user._id }, mySecret!, { expiresIn: '1h' });
-        
+
         res.cookie("token", token, { httpOnly: true });
-        res.status(200).json({ message: "Login bem-sucedido" });
+        res.status(200).send({
+            username: user.username,
+            email: user.email,
+            isVerifyed: user.isVerifyed,
+            birthDate: user.birthDate
+        });
 
     } catch (error) {
         console.error(error);
