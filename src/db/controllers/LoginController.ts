@@ -31,7 +31,8 @@ export const login = async (req: Request, res: Response) => {
             username: user.username,
             email: user.email,
             isVerifyed: user.isVerifyed,
-            birthDate: user.birthDate
+            birthDate: user.birthDate,
+            createdAt: user.createdAt
         });
 
     } catch (error) {

@@ -8,7 +8,10 @@ import router from "./routes";
 dotenv.config();
 
 const app: Express = express();
-app.use(express.json());
+
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
 app.use(cors({
     origin: 'http://localhost:5173', //front-end server address
     credentials: true, // allow use of credentials
