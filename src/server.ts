@@ -13,7 +13,7 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(cors({
-    origin: "*", //front-end server address
+    origin: 'https://glowing-sunshine-f4eb91.netlify.app', //front-end server address
     credentials: true, // allow use of credentials
 }));
 app.use(cookieParser());
