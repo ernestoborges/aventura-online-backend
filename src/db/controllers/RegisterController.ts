@@ -42,6 +42,7 @@ export const register = async (req: Request, res: Response) => {
              birthDate: newUser.birthDate,
              createdAt: newUser.createdAt
          });
+         
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: `Erro ao criar usuário. ${JSON.stringify(req.body)}` });

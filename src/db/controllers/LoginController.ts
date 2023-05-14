@@ -28,6 +28,7 @@ export const login = async (req: Request, res: Response) => {
 
         res.cookie("token", token, { httpOnly: true });
         res.status(200).send({
+            avatar_url: user.avatar_url,
             username: user.username,
             email: user.email,
             isVerifyed: user.isVerifyed,
