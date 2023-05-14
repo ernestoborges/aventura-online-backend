@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/"
-  to = $ENV_URL
+  to = echo $ENV_URL
   status = 200
   force = true
   headers = {X-From = "Netlify"}
