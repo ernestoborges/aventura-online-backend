@@ -16,6 +16,7 @@ app.use(cors({
     origin: process.env.FRONTEND_BASE_URL, //front-end server address
     credentials: true, // allow use of credentials
 }));
+
 app.use(cookieParser());
 app.use(router);
 
