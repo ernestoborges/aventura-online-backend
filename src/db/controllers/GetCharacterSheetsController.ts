@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';;
 import User from '../models/User';
 
-export const getUserSheets = async (req: Request, res: Response) => {
+export const getUserCharacters = async (req: Request, res: Response) => {
     try {
         const { userId } = req.body;
 

@@ -23,18 +23,40 @@ export const login = async (req: Request, res: Response) => {
             return res.status(401).json({ message: 'Credenciais inválidas.' });
         }
 
-        // JWT TOKEN CREATION
-        const token = jwt.sign({ userId: user._id }, mySecret!, { expiresIn: '1h' });
-
-        res.cookie("token", token, { httpOnly: true });
-        res.status(200).send({
+        // USER DATA
+        const userData = {
+            id: user._id,
             avatar_url: user.avatar_url,
             username: user.username,
             email: user.email,
             isVerifyed: user.isVerifyed,
             birthDate: user.birthDate,
             createdAt: user.createdAt
-        });
+        }
+
+        console.log(`secret login ${mySecret}`)
+        // JWT TOKEN CREATION
+        const accessToken = jwt.sign(
+            { ...userData },
+            mySecret!,
+            { expiresIn: '10s' }
+        );
+
+        const refreshToken = jwt.sign(
+            { username: user.username },
+            mySecret!,
+            { expiresIn: '1d' }
+        );
+
+        user.refreshToken = refreshToken
+        await user.save();
+
+        res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, maxAge: 24 * 60 * 60 * 1000 });
+
+        console.log(`token de acesso: ??????`)
+        console.log(`token de acesso: ${accessToken}`)
+        console.log(`token de atualização: ${refreshToken}`)
+        res.status(200).json({ accessToken });
 
     } catch (error) {
         console.error(error);

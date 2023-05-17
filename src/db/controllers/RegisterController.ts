@@ -1,9 +1,6 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import jwt from 'jsonwebtoken';
 import User from '../models/User';
-
-const mySecret = process.env.JWT_SECRET;
 
 export const register = async (req: Request, res: Response) => {
     try {
@@ -30,18 +27,7 @@ export const register = async (req: Request, res: Response) => {
         // SAVE DATA TO DATABASE
         await newUser.save();
 
-         // JWT TOKEN CREATION
-         const token = jwt.sign({ userId: newUser._id }, mySecret!, { expiresIn: '1h' });
-
-         res.cookie("token", token, { httpOnly: true });
-         res.status(201).send({
-             avatar_url: newUser.avatar_url,
-             username: newUser.username,
-             email: newUser.email,
-             isVerifyed: newUser.isVerifyed,
-             birthDate: newUser.birthDate,
-             createdAt: newUser.createdAt
-         });
+        res.status(201).json({ message: "Usuário criado com sucesso!"});
          
     } catch (error) {
         console.error(error);

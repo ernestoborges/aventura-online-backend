@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import CharacterSheet from '../models/CharacterSheet';
 
-export const createCharacterSheet = async (req: Request, res: Response) => {
+export const createCharacter = async (req: Request, res: Response) => {
     try {
         const { userId, name, xp, level, race, characterClass } = req.body;
 
