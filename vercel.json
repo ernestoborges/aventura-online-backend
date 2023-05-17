@@ -11,5 +11,23 @@
             "src": "(.*)",
             "dest": "src/server.ts"
         }
-    ]
+    ],
+    "rewrites": [
+        {
+          "source": "/(.*)",
+          "destination": "/index.js"
+        }
+      ],
+      "headers": [
+        {
+          "source": "/(.*)",
+          "headers": [
+            {
+              "key": "Access-Control-Allow-Origin",
+              "value": "*"
+            }
+          ]
+        }
+      ]
 }
+
