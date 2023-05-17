@@ -1,4 +1,4 @@
-import express, { Express } from "express";
+import express, { Express, Request, Response, NextFunction } from "express";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -11,12 +11,10 @@ const app: Express = express();
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-
 app.use(cors({
-    origin: process.env.FRONTEND_BASE_URL, //front-end server address
-    credentials: true, // allow use of credentials
+  origin: "https://aventuraonline.netlify.app",
+  credentials: true
 }));
-
 app.use(cookieParser());
 app.use(router);
 
