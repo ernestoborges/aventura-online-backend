@@ -34,7 +34,7 @@ export const uploadImage = async (req: Request, res: Response) => {
             user.avatar_url = data.secure_url;
             const updatedUser = await user.save();
 
-            res.status(200).json({avatar_url: updatedUser.avatar_url});
+            res.status(200).json({ avatar_url: updatedUser.avatar_url });
         }).catch((err) => {
 
             res.status(400).json({ error: err });
