@@ -45,7 +45,7 @@ export const handleRefreshToken = async (req: Request, res: Response) => {
         user.refreshToken = refreshToken
         await user.save();
 
-        res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, maxAge: 24 * 60 * 60 * 1000 });
+        res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, sameSite: "none",  maxAge: 24 * 60 * 60 * 1000 });
 
         // res.cookie("token", accessToken, { httpOnly: true });
         res.json({ accessToken });
