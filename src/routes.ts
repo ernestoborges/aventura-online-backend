@@ -6,7 +6,7 @@ import { authMiddleware } from './db/middlewares/authMiddleware';
 import { createCharacter } from './db/controllers/CreateCharacterSheetController';
 import { getUserData } from './db/controllers/UserController';
 import { handleRefreshToken } from './db/controllers/RefreshTokenController';
-// import { uploadImage } from './db/controllers/UploadImageController';
+import { uploadImage } from './db/controllers/UploadImageController';
 
 const router = express.Router();
 
@@ -19,7 +19,7 @@ router.get('/refresh-token', handleRefreshToken);
 // protected routes
 router.get('/user', authMiddleware, getUserData);
 
-// router.post('/upload-profile-image', authMiddleware, uploadImage);
+router.post('/upload-profile-image', authMiddleware, uploadImage);
 router.get('/characters', authMiddleware, getUserCharacters);
 router.post('/characters', authMiddleware, createCharacter);
 
