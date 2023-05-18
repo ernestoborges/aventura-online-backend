@@ -51,6 +51,7 @@ export const handleRefreshToken = async (req: Request, res: Response) => {
         );
 
         activeSession.refreshToken = refreshToken
+        activeSession.lastAccessedAt = new Date();
         await activeSession.save();
 
         res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 });
