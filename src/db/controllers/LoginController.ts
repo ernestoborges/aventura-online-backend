@@ -52,14 +52,9 @@ export const login = async (req: Request, res: Response) => {
         await user.save();
 
         res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, maxAge: 24 * 60 * 60 * 1000 });
-
-        console.log(`token de acesso: ??????`)
-        console.log(`token de acesso: ${accessToken}`)
-        console.log(`token de atualização: ${refreshToken}`)
         res.status(200).json({ accessToken });
 
     } catch (error) {
-        console.error(error);
         res.status(500).json({ message: 'Erro ao fazer login.' });
     }
 };

@@ -26,14 +26,11 @@ export function authMiddleware(req: CustomRequest, res: Response, next: NextFunc
     try {
 
         const data = jwt.verify(token, mySecret!);
-        console.log(data);
-
         const { id } = data as AccessTokenPayload;
-
         req.userId = id;
 
         return next();
-
+        
     } catch (err) {
         if (err instanceof JsonWebTokenError) {
             return res.status(401).json({ message: "Token de acesso inválido" });

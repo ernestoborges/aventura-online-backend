@@ -11,7 +11,7 @@ export const handleRefreshToken = async (req: Request, res: Response) => {
 
     if (!refreshToken) return res.status(401).json({ message: "Token não fornecido" })
 
-    const user = await User.findOne({ refreshToken });
+    const user = await User.findOne({ refreshToken: refreshToken });
     if (!user) return res.status(401).json({ message: "Não encontrado usuario com esse refreshtoken" })
 
     jwt.verify(refreshToken, mySecret!, async (err: jwt.VerifyErrors | null, decoded: any) => {
