@@ -7,6 +7,7 @@ import { createCharacter } from './db/controllers/CreateCharacterSheetController
 import { getUserData } from './db/controllers/UserController';
 import { handleRefreshToken } from './db/controllers/RefreshTokenController';
 import { uploadImage } from './db/controllers/UploadImageController';
+import { logout } from './db/controllers/LogoutController';
 
 const router = express.Router();
 
@@ -17,6 +18,8 @@ router.post('/login', login);
 router.get('/refresh-token', handleRefreshToken);
 
 // protected routes
+router.post('/logout', authMiddleware, logout);
+
 router.get('/user', authMiddleware, getUserData);
 
 router.post('/upload-profile-image', authMiddleware, uploadImage);

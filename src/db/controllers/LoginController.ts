@@ -34,8 +34,7 @@ export const login = async (req: Request, res: Response) => {
             birthDate: user.birthDate,
             createdAt: user.createdAt
         }
-
-        console.log(`secret login ${mySecret}`)
+        
         // JWT TOKEN CREATION
         const accessToken = jwt.sign(
             { ...userData },
