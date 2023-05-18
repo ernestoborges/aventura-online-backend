@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import User from '../models/User';
 import dotenv from "dotenv"
+import ActiveSession from '../models/ActiveSession';
 dotenv.config();
 
 const mySecret = process.env.JWT_SECRET;
@@ -48,8 +49,18 @@ export const login = async (req: Request, res: Response) => {
             { expiresIn: '1d' }
         );
 
-        user.refreshToken = refreshToken
-        await user.save();
+        const existingSession = await ActiveSession.findOne({ id: user._id });
+
+        if (existingSession) {
+            existingSession.refreshToken = refreshToken;
+            await existingSession.save();
+        } else {
+            const activeSession = new ActiveSession({
+                id: user._id,
+                refreshToken: refreshToken
+            });
+            await activeSession.save();
+        }
 
         res.cookie("refreshToken", refreshToken, { httpOnly: true, secure: true, sameSite: "none", maxAge: 24 * 60 * 60 * 1000 });
         res.status(200).json({ accessToken });
